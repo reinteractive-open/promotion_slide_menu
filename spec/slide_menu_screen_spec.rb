@@ -4,6 +4,7 @@ describe ProMotionSlideMenu::SlideMenuScreen do
     @delegate = App.delegate
     @menu = LeftNavScreen.new
     @content = BlankScreen.new
+    @preload_content = PreloadScreen.new
   end
 
   it "should return an instance of SlideMenuScreen" do
@@ -33,6 +34,13 @@ describe ProMotionSlideMenu::SlideMenuScreen do
     screen = ProMotionSlideMenu::SlideMenuScreen.new @menu, @content
     screen.hide_menu
     wait(0.5) { screen.focusedController.should == @content }
+  end
+
+  it "should call on_load for the content controller when requested" do
+    screen = ProMotionSlideMenu::SlideMenuScreen.new @menu, @preload_content
+    screen.hide_menu
+    wait(0.5) { screen.focusedController.should == @preload_content }
+    @preload_content.loaded.should == true
   end
 
   it "should let me wrap the content controller in a UINavigationController" do

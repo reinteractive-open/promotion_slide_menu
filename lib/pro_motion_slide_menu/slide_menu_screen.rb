@@ -54,6 +54,9 @@ module ProMotionSlideMenu
     def prepare_controller_for_pm(controller)
       controller = setup_screen_for_open(controller, {})
       ensure_wrapper_controller_in_place(controller, {})
+
+      controller.send(:on_load) if controller.respond_to?(:on_load)
+
       controller
     end
 
